@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model provinces {
+  id          Int     @id @default(autoincrement())
+  name        String? @db.VarChar(255)
+  capital     String? @db.VarChar(255)
+  area        Float
+  population  Int
+  region      region  @relation(fields: [regionid], references: [id])
+  clima       String
+  temperatura Float
+  regionid    Int
+}
+
+model CountrieDetails {
+  id       Int     @id @default(autoincrement())
+  capital  String? @db.VarChar(255)
+  lenguage String? @db.VarChar(255)
+}
+
+model CountryDetails {
+  id                  Int     @id @default(autoincrement())
+  capital             String?
+  mostPopulousCity    String?
+  officialLanguage    String?
+  governmentType      String?
+  president           String?
+  primeMinister       String?
+  independenceDate    String?
+  totalArea           String?
+  borderCountries     String?
+  population          String?
+  populationDensity   String?
+  gdpPppTotal         String?
+  gdpPppPerCapita     String?
+  gdpNominalTotal     String?
+  gdpNominalPerCapita String?
+  hdi                 String?
+  giniIndex           Int?
+  currency            String?
+  timeZone            String?
+  isoCode             String?
+  internetTLD         String?
+  callingCode         String?
+  officialWebsite     String?
+}
+model Holiday {
+  id      Int      @id @default(autoincrement())
+  date    DateTime
+  name    String
+  notes   String?
+}
+
+model region {
+  id         Int         @id @default(autoincrement())
+  name       String?     @db.VarChar(255)
+  population Int
+  created_at DateTime    @default(now()) @db.Timestamptz(6)
+  updated_at DateTime    @default(now()) @db.Timestamptz(6)
+  provinces  provinces[]
+}
