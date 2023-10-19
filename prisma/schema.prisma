@@ -66,3 +66,17 @@ model region {
   updated_at DateTime    @default(now()) @db.Timestamptz(6)
   provinces  provinces[]
 }
+
+model MunicipalDistricts{
+  id         Int         @id @default(autoincrement())
+  NomeDistrito       String?     @db.VarChar(255)
+}
+
+model Neighborhoods{
+  id         Int         @id @default(autoincrement())
+  NomeBairro       String?     @db.VarChar(255)
+  DistritoID       Int
+}
+
+ 
+ 
